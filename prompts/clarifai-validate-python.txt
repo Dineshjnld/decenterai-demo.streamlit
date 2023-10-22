@@ -1,0 +1,7 @@
+{data.text.raw} Should Implement the methods:
+1. split_dataset(self, test_size=0.2, random_state=42, **kwargs)
+2.  train_model(self)
+3.  calculate_score(self, model=None, X=None, y=None)
+
+
+AI: {data.text.raw} System: output: in this format: {"valid": true/false, "remark":string}

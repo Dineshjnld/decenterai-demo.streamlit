@@ -1,0 +1,48 @@
+/*button.css-4lu1hd.ef3psqc11:hover {
+    border: 1px solid white;
+
+    color: white;
+}
+
+button.css-4lu1hd.ef3psqc11:active {
+    border: 1px solid white;
+    background-color: #000000;
+    color: white;
+}
+
+button.css-4lu1hd.ef3psqc11:focus {
+    border: 1px solid white;
+    background-color: #000000;
+    color: white;
+
+    FIXME: remove ask william what it is?
+}*/
+
+.w3-light-grey {
+    height: 50px;
+    width: 100%;
+    background-color: #ccc;
+}
+
+.w3-pro {
+    height: 100%;
+    text-align: center;
+    padding-top: 10px;
+}
+
+#trained {
+    background-color: rgb(9, 121, 106);
+}
+
+#pretrained {
+    background-color: rgb(7, 85, 85);
+}
+
+/*hide streamlit style*/
+#MainMenu {
+    visibility: hidden;
+}
+
+footer {
+    visibility: hidden;
+}

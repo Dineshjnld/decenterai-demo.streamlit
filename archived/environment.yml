@@ -1,0 +1,9 @@
+name: ml
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - poetry
+  - pip:
+      - -r requirements-poetry.txt

@@ -1,0 +1,91 @@
+# doc: https://docs.streamlit.io/library/advanced-features/theming
+
+[server]
+folderWatchBlacklist = ['.idea', '.run']
+runOnSave = true
+port = 8501
+cookieSecret = "a-random-key-appears-here"
+baseUrlPath = ""
+enableCORS = true
+enableXsrfProtection = true
+maxUploadSize = 1024 #mb
+maxMessageSize = 200 #mb
+enableWebsocketCompression = true
+
+enableStaticServing = true
+#served in ./static :=/app/static/filename.jpg
+[theme]
+primaryColor = "#fff"
+backgroundColor = "#000000"
+secondaryBackgroundColor = "#252B48"
+textColor = "#ffffff"
+font = "sans serif"
+
+[browser]
+
+serverAddress = "localhost"
+gatherUsageStats = true
+serverPort = 8501
+
+[mapbox]
+# # https://mapbox.com. It's free (for moderate usage levels)!
+# token for elements like st.pydeck_chart and st.map. #TODO:
+token = ""
+
+[deprecation]
+
+# Set to false to disable the deprecation warning for the file uploader
+# encoding.
+
+# Default: true
+showfileUploaderEncoding = true
+
+# Set to false to disable the deprecation warning for using the global pyplot
+# instance.
+showPyplotGlobalUse = true
+
+
+[runner]
+# Allows you to type a variable or string by itself in a single line of
+# Python code to write it to the app.
+
+# Default: true
+magicEnabled = true
+
+# Install a Python tracer to allow you to stop or pause your script at
+# any point and introspect it. As a side-effect, this slows down your
+# script's execution.
+
+# Default: false
+installTracer = false
+
+# Sets the MPLBACKEND environment variable to Agg inside Streamlit to
+# prevent Python crashing.
+
+# Default: true
+fixMatplotlib = true
+
+# Run the Python Garbage Collector after each script execution. This
+# can help avoid excess memory use in Streamlit apps, but could
+# introduce delay in rerunning the app script for high-memory-use
+# applications.
+
+# Default: true
+postScriptGC = true
+
+# Handle script rerun requests immediately, rather than waiting for script
+# execution to reach a yield point. This makes Streamlit much more
+# responsive to user interaction, but it can lead to race conditions in
+# apps that mutate session_state data outside of explicit session_state
+# assignment statements.
+
+# Default: true
+fastReruns = true
+
+# Raise an exception after adding unserializable data to Session State.
+# Some execution environments may require serializing all data in Session
+# State, so it may be useful to detect incompatibility during development,
+# or when the execution environment will stop supporting it in the future.
+
+enforceSerializableSessionState = false
+# https://docs.streamlit.io/knowledge-base/using-streamlit/serializable-session-state
