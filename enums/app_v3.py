@@ -89,7 +89,7 @@ class App:
     @model_name.setter
     def model_name(self, model_name: str):
         if not model_name:
-            st.toast("model name not changed")
+        # st.toast("model name not changed")
             logging.debug("model_name: invalid")
             return
         self._prev_model_name = self._model_name

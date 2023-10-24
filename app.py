@@ -14,7 +14,6 @@ from utils.exec_commands import get_notebook_cmd
 from utils.helper_find import (
     find_requirements_txt_files,
     find_driver_scripts,
-    find_demos,
 )
 from utils.install_deps import install_dependencies
 from views.head import head_v3
@@ -25,12 +24,6 @@ load_dotenv()
 
 head_v3()
 
-option = st.selectbox(
-    "App Version",
-    ("v3", "v2", "v1"),
-    help="versioning documentation with feature lists coming up soon",
-)
-
 app: App = st.session_state.get("app")
 
 if not app:
@@ -38,20 +31,13 @@ if not app:
     logging.info("creating new app instance")
     st.session_state.app = app
 
-
-if option != app.version:  # don't redirect if in the same page
-    st.markdown(
-        f'<meta http-equiv="refresh" content="0;URL=/{option}">',
-        unsafe_allow_html=True,
+model_name = st.text_input(
+        "Model Name",
+        max_chars=50,
+        placeholder="Enter the Model Name",
+        key="model_name",
+        value=app.model_name,
     )
-
-app.selected_demo = st.selectbox(
-    "Demo",
-    find_demos(),
-    help="enabled when no input archive is uploaded",
-    disabled=not app.demo,
-    key="selected_demo",
-)
 
 input_archive = st.file_uploader(
     "Upload Training Workspace Archive with Datasets",
@@ -61,35 +47,26 @@ input_archive = st.file_uploader(
 )
 
 demo = input_archive is None
+if demo:
+        
+    st.selectbox(
+    "Training Script:",
+    find_driver_scripts(app.work_dir),
+)
+    st.button("Train", key="train")
 
 if demo != app.demo:
     app.demo = demo
     logging.info(f"demo mode set {app.demo}->{demo}")
     st.experimental_rerun()
-
-if not app.demo and input_archive:
-    model_name = os.path.splitext(os.path.basename(input_archive.name))[0]
-    app.model_name = model_name
-
-if not app.demo:
-    model_name = st.text_input(
-        "Model Name",
-        max_chars=50,
-        placeholder="decenter-model",
-        key="model_name",
-        value=app.model_name,
-        disabled=app.demo,
-    )
-    if model_name and app.model_name != model_name:
-        app.model_name = model_name
-
+ 
 if app.model_name not in app.work_dir:
     logging.info("creating new app.work_dir")
     app.recycle_temp_dir()
 
 if app.demo:
     if not app.selected_demo:
-        st.error("demo: not found")
+        # st.error("demo: not found")
         logging.critical("demo: not found")
         st.stop()
 
@@ -123,24 +100,24 @@ training_cmd: List[str]
 match execution_environment:
     case ".py":
         app.environment = PYTHON
-        requirements = st.selectbox(
-            "Select dependencies to install",
-            find_requirements_txt_files(
-                app.work_dir,
-            ),
-        )
+        # requirements = st.selectbox(
+        #     "Select dependencies to install",
+        #     find_requirements_txt_files(
+        #         app.work_dir,
+        #     ),
+        # )
 
-        if requirements:
-            with st.spinner("Installing dependencies in progress"):
-                app.requirements_path = os.path.join(
-                    app.work_dir,
-                    requirements,
-                )
-                install_dependencies(
-                    app.python_repl,
-                    app.requirements_path,
-                    cwd=app.work_dir,
-                )
+        # if requirements:
+        #     with st.spinner("Installing dependencies in progress"):
+        #         app.requirements_path = os.path.join(
+        #             app.work_dir,
+        #             requirements,
+        #         )
+        #         install_dependencies(
+        #             app.python_repl,
+        #             app.requirements_path,
+        #             cwd=app.work_dir,
+        #         )
         training_cmd = [app.python_repl, app.training_script]
 
     case ".ipynb":
@@ -220,7 +197,7 @@ if st.button("Train", key="train"):
         st.download_button(
             label="Download Model",
             data=f1,
-            file_name=f"decenter-model-{app.model_name}.zip",
+            file_name=f"{model_name}.zip",
             key="download_model",
         )
         app.recycle_temp_dir()

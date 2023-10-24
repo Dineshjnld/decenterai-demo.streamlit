@@ -42,9 +42,11 @@ def head_v3():
             REPORT_A_BUG_KEY: GITHUB_REPORT_BUG,
             ABOUT_KEY: APP_ABOUT,
             GET_HELP_KEY: GITHUB_DISCUSSION_QA,
+            
         },
+        initial_sidebar_state="collapsed",
     )
-    st.sidebar.header("v3")
+    #st.sidebar.header("v3")
 
     st.markdown(public.button_styles_css, unsafe_allow_html=True)
 
@@ -62,11 +64,13 @@ def head_v3():
             "static/cute_robo_avatar.png",
             caption="AI Infrastructure for Model training",
         )
-        st.toast("Welcome to Decenter", icon="🙏")
+        #st.toast("Welcome to # In the given code, `D` is not doing anything. It is just a placeholder
+        # variable name. It is not used or referenced anywhere in the code.
+        st.toast("Welcome to DeCenter AI", icon="🙏")
 
     col2.image(public.logo, width=400)
 
-    st.sidebar.success("Load complete")
+    #st.sidebar.success("Load complete")
 
 
 def head_v4():
@@ -89,4 +93,4 @@ def head_v4():
 
     col2.image(public.logo, width=400)
 
-    st.sidebar.success("Load complete")
+    #st.sidebar.success("Load complete")
